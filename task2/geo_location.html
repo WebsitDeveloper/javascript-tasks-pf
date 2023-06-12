@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Current Geolocation</title>
+  </head>
+
+  <body>
+    <button onclick="geoLocation()">See Location</button>
+    <h4 id="location"></h4>
+
+    <script>
+      function geoLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const lat = position.coords.latitude;
+              const long = position.coords.longitude;
+              const coordinates = `Latitude: ${lat},
+              Longitude: ${long}`;
+              document.getElementById("location").textContent = coordinates;
+            },
+            (error) => {
+              document.getElementById("location").textContent =
+                "Need access to get location.";
+            }
+          );
+        }
+      }
+    </script>
+  </body>
+</html>

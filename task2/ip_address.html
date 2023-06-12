@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IP Address and Geo Location</title>
+  </head>
+  <body>
+    <button onclick="ip_address()">IP Address</button>
+    <button onclick="geoLocation()">See Location</button>
+
+    <p id="demo"></p>
+    <h4 id="location"></h4>
+
+    <script>
+      /* IP Address */
+      function ip_address() {
+        fetch("https://api.ipify.org?format=json")
+          .then((results) => results.json())
+          .then((data) => alert(data.ip));
+      }
+
+      /* Current Location */
+      function geoLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const lat = position.coords.latitude;
+              const long = position.coords.longitude;
+              const coordinates = `Latitude: ${lat},
+              Longitude: ${long}`;
+              document.getElementById("location").textContent = coordinates;
+            },
+            (error) => {
+              document.getElementById("location").textContent =
+                "Need access to get location.";
+            }
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
